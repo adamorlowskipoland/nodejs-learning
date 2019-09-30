@@ -3,10 +3,8 @@ const fs = require('fs');
 
 const readStream = fs.createReadStream(`${__dirname}/readme.txt`, 'utf8');
 const writeStream = fs.createWriteStream(`${__dirname}/writeme.txt`,);
-readStream.on('data', chunk => {
-  console.log('New chunk received');
-  writeStream.write(chunk);
-});
+
+readStream.pipe(writeStream);
 
 
 // const server = http.createServer(((req, res) => {
