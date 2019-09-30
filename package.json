@@ -1,0 +1,26 @@
+{
+  "name": "nodejs-tutorial",
+  "version": "1.0.0",
+  "description": "Link to tutorial:\r https://www.youtube.com/watch?v=w-7RQ46RgxU&list=PL4cUxeGkcC9gcy9lrvMJ75z9maRw4byYp&index=1",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adamorlowskipoland/nodejs-learning.git"
+  },
+  "author": "The Net Ninja && Adam Orłowski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adamorlowskipoland/nodejs-learning/issues"
+  },
+  "homepage": "https://github.com/adamorlowskipoland/nodejs-learning#readme"
+}
