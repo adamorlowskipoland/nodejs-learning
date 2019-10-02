@@ -4,6 +4,8 @@
   "description": "Link to tutorial:\r https://www.youtube.com/watch?v=w-7RQ46RgxU&list=PL4cUxeGkcC9gcy9lrvMJ75z9maRw4byYp&index=1",
   "main": "app.js",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^2.7.1",
     "express": "^4.17.1"
   },
   "devDependencies": {

@@ -1,50 +1,47 @@
-const http = require('http');
-const fs = require('fs');
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
 
-const server = http.createServer(((req, res) => {
-  console.log(`request was made: ${req.url}`);
-  if (req.url === '/home' || req.url === '/') {
-    res.writeHead(
-      200,
-      { 'Content-Type': 'text/html' }
-    );
-    fs
-      .createReadStream(__dirname + '/index.html', 'utf8')
-      .pipe(res);
-  } else if (req.url === '/contact') {
-    res.writeHead(
-      200,
-      { 'Content-Type': 'text/html' }
-    );
-    fs
-      .createReadStream(__dirname + '/contact.html', 'utf8')
-      .pipe(res);
-  } else if (req.url === '/api/ninjas') {
-    const ninjas = [
-      {
-        name: 'Ryu',
-        age: 29,
-      },
-      {
-        name: 'Yoshi',
-        age: 32,
-      },
-    ];
-    res.writeHead(
-      200,
-      { 'Content-Type': 'application/json' }
-    );
-    res.end(JSON.stringify(ninjas));
-  } else {
-    res.writeHead(
-      404,
-      { 'Content-Type': 'text/html' }
-    );
-    fs
-      .createReadStream(__dirname + '/404.html', 'utf8')
-      .pipe(res);
-  }
-}));
+const encodedParser = bodyParser.urlencoded({ extended: false });
 
-server.listen(3000, '127.0.0.1');
-console.log('Server is listening on port 3000');
+app.set('view engine', 'ejs');
+app.use('/assets', express.static('assets'));
+
+app.get('/', (req, res) => {
+  res.render('index');
+});
+
+app.get('/contact', (req, res) => {
+  res.render('contact', {
+    qs: req.query,
+  });
+});
+app.post('/contact', encodedParser, (req, res) => {
+  console.log(req.body);
+  res.render('contact-success', {
+    data: req.body,
+  });
+  // res.send('Welcome, ' + req.body.who)
+});
+
+app.get('/profile/:name', (req, res) => {
+  const data = {
+    age: 29,
+    job: 'ninja',
+    hobbies: [
+      'eating',
+      'fighting',
+      'fishing',
+    ],
+  };
+  res.render('profile', {
+    person: req.params.name,
+    data,
+  });
+});
+
+app.get('*', (req, res) => {
+  res.render('404');
+});
+
+app.listen(3000);
