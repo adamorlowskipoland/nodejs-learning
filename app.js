@@ -1,5 +1,8 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
+
+const encodedParser = bodyParser.urlencoded({ extended: false });
 
 app.set('view engine', 'ejs');
 app.use('/assets', express.static('assets'));
@@ -12,6 +15,13 @@ app.get('/contact', (req, res) => {
   res.render('contact', {
     qs: req.query,
   });
+});
+app.post('/contact', encodedParser, (req, res) => {
+  console.log(req.body);
+  res.render('contact-success', {
+    data: req.body,
+  });
+  // res.send('Welcome, ' + req.body.who)
 });
 
 app.get('/profile/:name', (req, res) => {
