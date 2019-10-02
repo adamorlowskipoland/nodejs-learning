@@ -9,7 +9,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('/contact', (req, res) => {
-  res.render('contact');
+  res.render('contact', {
+    qs: req.query,
+  });
 });
 
 app.get('/profile/:name', (req, res) => {
@@ -26,6 +28,10 @@ app.get('/profile/:name', (req, res) => {
     person: req.params.name,
     data,
   });
+});
+
+app.get('*', (req, res) => {
+  res.render('404');
 });
 
 app.listen(3000);

@@ -4,3 +4,7 @@ body {
   color: #263137;
   padding: 30px;
 }
+label {
+  display: block;
+  margin-top: 15px;
+}
