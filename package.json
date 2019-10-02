@@ -4,7 +4,8 @@
   "description": "Link to tutorial:\r https://www.youtube.com/watch?v=w-7RQ46RgxU&list=PL4cUxeGkcC9gcy9lrvMJ75z9maRw4byYp&index=1",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,8 @@
     "body-parser": "^1.19.0",
     "ejs": "^2.7.1",
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.3"
   }
 }
