@@ -1,13 +1,35 @@
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
+// create bodyParser
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
+
+// connect to the dtabase
+mongoose.connect('mongodb://<dbuser>:<dbpassword>@ds121534.mlab.com:21534/todo-nodejs-tutorial');
+
+
+// create a schema - this is like a bluepring
+const todoSchema = new mongoose.Schema({
+  item: String,
+});
+
+// create model
+const Todo = mongoose.model('Todo', todoSchema);
+
+
+
 module.exports = (app) => {
   app.get('/todo', (req, res) => {
-    res.render('todo');
+    res.render('todo', { todos: data });
   });
 
-  // app.post('/todo', (req, res) => {
-  //
-  // });
-  //
-  // app.delete('/todo', (req, res) => {
-  //
-  // });
+  app.post('/todo', urlencodedParser, (req, res) => {
+    data.push(req.body);
+    res.json({ todos: data });
+  });
+
+  app.delete('/todo/:item', (req, res) => {
+    data = data.filter(todo => todo.item.replace(/ /g, '-') !== req.params.item)
+    res.json({ todos: data });
+  });
 };
