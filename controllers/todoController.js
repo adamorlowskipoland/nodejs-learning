@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 // create bodyParser
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-// connect to the dtabase
+// connect to the database mlab.com
 mongoose.connect('mongodb://yourUserName:yourPassword@ds121534.mlab.com:21534/todo-nodejs-tutorial');
 
 
