@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 // connect to the dtabase
-mongoose.connect('mongodb://<dbuser>:<dbpassword>@ds121534.mlab.com:21534/todo-nodejs-tutorial');
+mongoose.connect('mongodb://yourUserName:yourPassword@ds121534.mlab.com:21534/todo-nodejs-tutorial');
 
 
 // create a schema - this is like a bluepring
@@ -20,16 +20,28 @@ const Todo = mongoose.model('Todo', todoSchema);
 
 module.exports = (app) => {
   app.get('/todo', (req, res) => {
-    res.render('todo', { todos: data });
+    Todo.find({}, (err, data) => {
+      if (err) throw err;
+      res.render('todo', { todos: data });
+    });
   });
 
   app.post('/todo', urlencodedParser, (req, res) => {
-    data.push(req.body);
-    res.json({ todos: data });
+    Todo(req.body)
+      .save((err, data) => {
+        if (err) throw err;
+        res.json({ todos: data });
+      });
   });
 
   app.delete('/todo/:item', (req, res) => {
-    data = data.filter(todo => todo.item.replace(/ /g, '-') !== req.params.item)
-    res.json({ todos: data });
+    Todo
+      .find({
+        item: req.params.item.replace(/-/g, ' '),
+      })
+      .deleteOne((err, data) => {
+        if (err) throw err;
+        res.json({ todos: data });
+      });
   });
 };
